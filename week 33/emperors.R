@@ -1,5 +1,4 @@
 library(tidyverse)
-library(ggimage)
 library(lubridate)
 library(here)
 
@@ -27,7 +26,7 @@ dynasties <- plot_data %>%
                 summarize(reign_start_year = min(reign_start_year),
                           reign_end_year = max(reign_end_year))
 
-my_palette <- set_names(colorRampPalette(c("#018790", "#2B2726"))(8), unique(plot_data$dynasty))
+my_palette <- set_names(colorRampPalette(c("#F5F646", "#F95E7F"))(8), unique(plot_data$dynasty))
 
 timeline <- ggplot(plot_data, aes(y = 0)) +
         geom_segment(aes(x = reign_start_year, xend = reign_end_year, yend = 0, color = dynasty), 
@@ -129,25 +128,9 @@ netgraph <- ggplot(empnet, aes(from_id = rise, to_id = cause,
                  repel = TRUE) + 
         labs(title = str_to_title("the beginning and the end of emperors"),
              subtitle = str_wrap("Below is a network graph illustrating the rise and fall of emperors. It is distinguishable that quite a number of Roman emperors rose from birthright, and they fell because of the inevitable or assassinations.", 70),
-             caption = "Data: Wikipedia via @geokaramanis | Graph by @scofirroto") +
+             caption = "Data: Wikipedia via @geokaramanis | Graph by @chucc900") +
         theme_net() +
         theme(text = element_text(family = "serif", size = 12),
               title = element_text(face = "bold"),
               panel.background = element_rect(fill = "beige"))
 ggsave(here("Week 33", "network.png"), netgraph, width = 7.5, height = 8)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
