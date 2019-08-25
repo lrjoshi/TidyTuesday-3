@@ -51,21 +51,23 @@ p <- ggplot() +
              subtitle = str_wrap("A re-design for statistical chart in SIPRI report (2000) tallying 
                                  the number of nuclear explosions conducted by countries 
                                  in the air and under ground.", 85), 
-             caption = "data: Stockholm International Peace Research Institute\ngraph: @chucc900") +
+             caption = "data: Stockholm International Peace Research Institute|graph: @chucc900") +
         theme(panel.background = element_rect("#000000"), 
               plot.background = element_rect("#000000"),
               panel.grid.minor = element_blank(),
               panel.grid.major.x = element_blank(),
               legend.position = c(0.7, 0.68),
-              legend.text = element_text(size = 10, margin = margin(0, 5, -1, 0)),
+              legend.text = element_text(size = 20, margin = margin(0, 5, -1, 0)),
               legend.title = element_blank(),
-              legend.key = element_rect(fill = "#000000", size = 5), 
+              legend.key = element_rect(fill = "#000000"),
+              legend.key.size = unit(.8, "cm"), 
               text = element_text(color = "white"), 
               axis.text = element_text(color = "white"),
               axis.text.x = element_text(angle = 90), 
               axis.line.y = element_line(color = "white"),
               plot.margin = margin(40, 40, 10, 10),
-              plot.title = element_text(size = 30, color = radioactive_cols()["gorse"], face = "bold"),
+              plot.title = element_text(size = 30, color = radioactive_cols()["gorse"], 
+                                        face = "bold"),
               plot.subtitle = element_text(size = 20)
         )
 
