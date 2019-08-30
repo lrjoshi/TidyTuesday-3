@@ -1,0 +1,32 @@
+id, country, date, project, "content"
+1, China, 19641016, 596 Test, First nuclear explosion in China
+2, China, 19670617, Test No.6, First hydrogen bomb test
+3, China, 19741117, CHIC-16, 200 kt-1 Mt Atmoshpheric test
+4, China, 19761016, #21, Largest hydrogen bomb tested by China
+5, China, 19801016, #29, Last atmospheric test by China and in the world
+6, China, 19960729, #45, Last test in China
+7, France, 19600213, Operation Gerboise bleue, First nuclear explosion in France
+8, France, 19611107, Operation Agathe, 13 tests in total; underground
+9, France, 19660702, Operation Aldébaran, 46 tests in total; in the air
+10, France, 19680828, Operation Canopus, First hydrogen bomb test in France
+11, France, 19750605, Operation Achille, 137 tests in total; underground
+12, France, 19960127, Operation Xouthos, Last test in France
+13, Soviet Union, 19490829, Operation RDS-1, First nuclear explosion in Soviet Union
+14, Soviet Union, 19530812, RDS-6s, First nuclear explosion in USSR
+15, Soviet Union, 19551122, RDS-37, First Soviet test of thermonuclear weapon
+16, Soviet Union, 19611030, Tsar Bomba, The largest nuclear weapon ever detonated in the world
+17, Soviet Union, 19650115, Chagan, Large cratering experiment that eventually created a artificial lake
+18, Soviet Union, 19901024, Last test in USSR, Soviet Union's last nuclear weapon test before dissolution in 1992
+19, United Kingdom, 19521003, Operation Hurricane, First nuclear explosion in the United Kingdom
+20, United Kingdom, 19531015, Operation Totem, A pair of atmospheric tests to determine the amount of plutonium-240 could be presented in a bomb
+21, United Kingdom, 19560516, Operation Mosaic, Two tests for increasing yield of nuclear weapons using a different method
+22, United Kingdom, 1957-1958, Operation Grapple, Four series of nuclear weapon tests for early atomic bombs and hydrogen bombs
+23, United Kingdom, 19911126, Julin Bristol, The final nuclear weapon test of the UK
+24, USA, 19450716, The Trinity Test, The first ever tested nuclear weapon in the world
+25, USA, Jul 1946, Operation Crossroads, The first postwar nuclear weapon test series
+26, USA, May 1951, Operation Greenhouse, The fifth nuclear weapon test series that proved feasibility of thermonuclear weapons
+27, USA, 19521101, Ivy Mike Shot, The first full test of a hydrogen bomb
+28, USA, 19540301, Castle Bravo, The first test of deployable thermonuclear weapon and the largest weapon ever tested in US; it resulted in an unanticipated nuclear fallout
+29, USA, May-Oct 1957, Operation Plumbob, The longest; largest and the most controversial nuclear weapon test series in US
+30, USA, 19620506, Operation Dominic, The only test of ballistic missile with a live nuclear warhead in US
+31, USA, 19920923, Operation Julin, The last US nuclear weapon test and was interrupted by negotiations of testing ban treaty
