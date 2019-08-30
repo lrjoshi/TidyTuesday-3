@@ -171,10 +171,10 @@ annotext <- annodata %>%
               strip.text = element_text(color = "#FFFFFF", size = 20),
               strip.background = element_blank(),
               panel.grid = element_blank(),
-              legend.position = c(.85, 1.2),
+              legend.position = c(.85, 1.1), 
               legend.background = element_blank(),
-              legend.text = element_text(color = "#FFFFFF", size = 13),
-              legend.title = element_text(color = "#FFFFFF", face = "bold", size = 13))
+              legend.text = element_text(color = "#FFFFFF", size = 30),
+              legend.title = element_text(color = "#FFFFFF", face = "bold", size = 30))
         )
 
 
@@ -219,4 +219,4 @@ ani <- ggplot(cal) +
               axis.text = element_blank()) +
         transition_manual(frames = id)
 anim_save(here("Week 34", "nuclear_calendar.gif"), 
-          animate(ani, nframes = 31, fps = 1, duration = 62))
+          animate(ani, nframes = 31, fps = 1, duration = 46.5))
