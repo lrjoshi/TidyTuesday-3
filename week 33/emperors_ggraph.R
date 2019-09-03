@@ -37,4 +37,4 @@ tbl_graph(nodes = nodes, edges = edges, directed = TRUE) %>%
         labs(title = str_to_title("the beginning and the end of emperors"),
              subtitle = str_wrap("Below is a network graph illustrating the rise and fall of emperors. It is distinguishable that quite a number of Roman emperors rose from birthright, and they fell because of the inevitable or assassinations.", 70),
              caption = "Data: Wikipedia via @geokaramanis | Graph by @chucc900") +
-        ggsave(here::here("Week 34", "emperors_ggraph.png"), height = 5, width = 12)
+        ggsave(here::here("Week 33", "emperors_ggraph.png"), height = 5, width = 12)
