@@ -1,5 +1,4 @@
 library(tidyverse)
-library(lubridate)
 library(rvest)
 library(magick)
 library(cowplot)
@@ -91,6 +90,8 @@ icons <-
                         image_read(.x) %>% image_fill("grey", "+100+200", fuzz = 100)
                 }
         })
+sub <- str_wrap("More than 500 safety accidents happened in amusement parks according to data.world. 
+Graphic below shows common injuries occur on upper body such as shoulder, back and neck.", 35)
 
 figure <- image_read(here::here("Week 37", "figure512.png")) %>% 
         image_crop("512x512+210") %>% 
@@ -104,7 +105,7 @@ main <- figure +
         geom_text(data = texts, aes(x, y, label = text), color = "red", size = 8, hjust = 0.15) + 
         geom_text(data = annotations, aes(x = x, y = y, col = I(col), label = n), size = 5, vjust = 0.7)
 
-g <- ggdraw(main) + 
+ggdraw(main) + 
         draw_image(icons$head, 
                    x = .79, y = 1, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
         draw_image(icons$face, 
@@ -134,6 +135,12 @@ g <- ggdraw(main) +
         draw_image(icons$foot,
                    x = .87, y = .16, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
         draw_image(icons$toe, 
-                   x = .92, y = .16, width = .3, height = .045, hjust = 1.4, vjust = 2.6)
+                   x = .92, y = .16, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_text(text = "Injuries in amusement parks", x = .01, y = .96, 
+                  size = 23, hjust = 0, family = "Optima", color = "#ff8247", fontface = "bold") +
+        draw_text(text = sub, x = .01, y = .9, 
+                  hjust = 0, vjust = .9, size = 18, family = "Optima") +
+        draw_text(text = "data: data.world | graphic: @chucc900\nicons: www.flaticons.com", 
+                  x = 0.7, y = 0.06, hjust = 0, vjust = .4, family = "Optima")
 
-ggsave(here::here("Week 37", "injuries.png"), width = 31.9, height = 19.9, units = "cm")
+ggsave(here::here("Week 37", "injuries.png"), width = 32.5, height = 19.9, units = "cm")
