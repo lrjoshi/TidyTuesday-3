@@ -6,8 +6,6 @@ library(cowplot)
 
 df_injuries <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-09-10/tx_injuries.csv", 
                                na = c("n/a", "NA", "N/A"))
-df_parks <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-09-10/saferparks.csv")
-
 date_parse <- quote(as_date(as.numeric(injury_date), origin = "1900-01-01"))
 
 body_list <- read_html("https://www.enchantedlearning.com/wordlist/body.shtml") %>% 
@@ -35,12 +33,6 @@ injured_foot <- c("ankle", "foot", "toe")
 
 # clean data
 df_injures_body <- df_injuries %>% 
-        mutate(gender = toupper(gender), # fixed gender 'm'
-               age = case_when(age == "30s" ~ 35, 
-                               age == "mid-60s" ~ 65, 
-                               age == "0" ~ NA_real_, # assume age 0 is missing data instead of actual new born
-                               TRUE ~ as.numeric(age))
-        ) %>% 
         mutate(body_part = tolower(body_part) %>% 
                        str_split(" |/") %>% 
                        map(str_remove, ",|\\.|&")) %>% 
