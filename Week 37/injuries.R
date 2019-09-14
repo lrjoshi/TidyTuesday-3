@@ -56,22 +56,92 @@ df_injures_body <- df_injuries %>%
         filter(!body_part == "collar") %>% 
         select(age, gender, body_part, injured)
 
-points <- data.frame(x = c(50, 75, 140, 75, 85), 
-                     y = c(50, 135, 270, 325, 480))
-segments <- data.frame(x = points$x + c(60, 70, 40, 50, 60), y = points$y) %>% 
+points <- 
+        data.frame(x = c(50, 75, 140, 75, 85), 
+                   y = c(50, 135, 270, 325, 480), 
+                   size = c(9, 12, 3, 6, 3))
+segments <- 
+        data.frame(x = points$x + c(60, 70, 40, 50, 60), y = points$y) %>% 
         bind_rows(points) %>% 
         mutate(group = rep(1:5, 2))
+texts <- 
+        df_injures_body %>% 
+        group_by(injured) %>% 
+        count() %>% 
+        ungroup() %>% 
+        slice(3, 5, 2, 4, 1) %>% 
+        mutate(n = scales::percent(n / 583, accuracy = 2), 
+               text = glue::glue("{n}"), 
+               x = segments$x[1:5] + 6, y = segments$y[1:5])
+annotations <- 
+        df_injures_body %>% 
+        group_by(injured) %>% 
+        count(body_part) %>% 
+        top_n(3, n) %>% 
+        ungroup() %>% 
+        mutate(img = here::here(glue::glue("Week 37/icon/{body_part}.png"))) %>% 
+        group_by(injured) %>% 
+        arrange(injured, desc(n)) %>% 
+        ungroup() %>% 
+        mutate(col = ifelse(body_part %in% c("ankle", "arm", "head", "knee", "shoulder"),
+                            "red", "grey"), 
+               x = c(195, 235, 275, 220, 255, 290, 165, 217, 265, 185, 225, 265, 203, 242, 283), 
+               y = c(rep(497, 3), rep(285, 3), rep(70, 3), rep(353, 3), rep(150, 3)))
+
+icons <- 
+        annotations %>% 
+        pull(img) %>% 
+        set_names(annotations$body_part) %>% 
+        imap(~{
+                if(.y %in% c("ankle", "arm", "head", "knee", "shoulder")) {
+                        image_read(.x) %>% image_fill("red", "+100+200", fuzz = 100)
+                } else {
+                        image_read(.x) %>% image_fill("grey", "+100+200", fuzz = 100)
+                }
+        })
 
 figure <- image_read(here::here("Week 37", "figure512.png")) %>% 
         image_crop("512x512+210") %>% 
-        image_background("grey20") %>% 
-        image_negate()
+        image_negate() %>%
+        image_background("#ff8247") %>% 
+        image_ggplot()
 
-image_ggplot(figure) +
-        theme_classic() +
-        geom_point(data = points, aes(x = x, y = y), size = 3, color = "red", alpha = .4) +
-        geom_path(data = segments, aes(x = x, y = y, group = group))
+main <- figure +
+        geom_point(data = points, aes(x = x, y = y, size = I(size)), color = "#ff4500", alpha = .4) +
+        geom_path(data = segments, aes(x = x, y = y, group = group)) + 
+        geom_text(data = texts, aes(x, y, label = text), color = "red", size = 8, hjust = 0.15) + 
+        geom_text(data = annotations, aes(x = x, y = y, col = I(col), label = n), size = 5, vjust = 0.7)
 
+g <- ggdraw(main) + 
+        draw_image(icons$head, 
+                   x = .79, y = 1, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$face, 
+                   x = .85, y = 1, width = .3, height = .045, hjust = 1.4, vjust = 2.6) +
+        draw_image(icons$eye, 
+                   x = .91, y = 1, width = .3, height = .045, hjust = 1.4, vjust = 2.6) +
+        draw_image(icons$shoulder, 
+                   x = .83, y = .84, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$back, 
+                   x = .88, y = .84, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$neck, 
+                   x = .93, y = .84, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$arm %>% image_flop(), 
+                   x = .855, y = .575, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$wrist, 
+                   x = .895, y = .575, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$finger %>% image_flop(), 
+                   x = .935, y = .575, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$knee, 
+                   x = .81, y = .45, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$hip, 
+                   x = .86, y = .45, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$leg, 
+                   x = .91, y = .45, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$ankle, 
+                   x = .82, y = .16, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$foot,
+                   x = .87, y = .16, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
+        draw_image(icons$toe, 
+                   x = .92, y = .16, width = .3, height = .045, hjust = 1.4, vjust = 2.6)
 
-
-        
+ggsave(here::here("Week 37", "injuries.png"), width = 31.9, height = 19.9, units = "cm")
