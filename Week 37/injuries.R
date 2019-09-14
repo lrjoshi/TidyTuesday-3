@@ -75,7 +75,7 @@ annotations <-
         arrange(injured, desc(n)) %>% 
         ungroup() %>% 
         mutate(col = ifelse(body_part %in% c("ankle", "arm", "head", "knee", "shoulder"),
-                            "red", "grey"), 
+                            "yellow", "grey"), 
                x = c(195, 235, 275, 220, 255, 290, 165, 217, 265, 185, 225, 265, 203, 242, 283), 
                y = c(rep(497, 3), rep(285, 3), rep(70, 3), rep(353, 3), rep(150, 3)))
 
@@ -85,7 +85,7 @@ icons <-
         set_names(annotations$body_part) %>% 
         imap(~{
                 if(.y %in% c("ankle", "arm", "head", "knee", "shoulder")) {
-                        image_read(.x) %>% image_fill("red", "+100+200", fuzz = 100)
+                        image_read(.x) %>% image_fill("yellow", "+100+200", fuzz = 100)
                 } else {
                         image_read(.x) %>% image_fill("grey", "+100+200", fuzz = 100)
                 }
@@ -102,8 +102,8 @@ figure <- image_read(here::here("Week 37", "figure512.png")) %>%
 main <- figure +
         geom_point(data = points, aes(x = x, y = y, size = I(size)), color = "#ff4500", alpha = .4) +
         geom_path(data = segments, aes(x = x, y = y, group = group)) + 
-        geom_text(data = texts, aes(x, y, label = text), color = "red", size = 8, hjust = 0.15) + 
-        geom_text(data = annotations, aes(x = x, y = y, col = I(col), label = n), size = 5, vjust = 0.7)
+        geom_text(data = texts, aes(x, y, label = text), color = "yellow", size = 8, hjust = 0.15, family = "Optima") + 
+        geom_text(data = annotations, aes(x = x, y = y, col = I(col), label = n), size = 5, vjust = 0.7, family = "Optima") 
 
 ggdraw(main) + 
         draw_image(icons$head, 
