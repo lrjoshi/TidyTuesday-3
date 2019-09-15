@@ -85,24 +85,24 @@ icons <-
         set_names(annotations$body_part) %>% 
         imap(~{
                 if(.y %in% c("ankle", "arm", "head", "knee", "shoulder")) {
-                        image_read(.x) %>% image_fill("yellow", "+100+200", fuzz = 100)
+                        image_read(.x) %>% image_fill("#f4ee53", "+100+200", fuzz = 100)
                 } else {
-                        image_read(.x) %>% image_fill("grey", "+100+200", fuzz = 100)
+                        image_read(.x) %>% image_fill("#bababa", "+100+200", fuzz = 100)
                 }
         })
 sub <- str_wrap("More than 500 safety accidents happened in amusement parks according to data.world. 
-Graphic below shows common injuries occur on upper body such as shoulder, back and neck.", 35)
+Graphic shows common injuries occur on upper body such as shoulder, back and neck.", 35)
 
 figure <- image_read(here::here("Week 37", "figure512.png")) %>% 
         image_crop("512x512+210") %>% 
         image_negate() %>%
-        image_background("#ff8247") %>% 
+        image_background("#8d8c8c") %>% 
         image_ggplot()
 
 main <- figure +
-        geom_point(data = points, aes(x = x, y = y, size = I(size)), color = "#ff4500", alpha = .4) +
+        geom_point(data = points, aes(x = x, y = y, size = I(size)), color = "#f4ee53", alpha = .4) +
         geom_path(data = segments, aes(x = x, y = y, group = group)) + 
-        geom_text(data = texts, aes(x, y, label = text), color = "yellow", size = 8, hjust = 0.15, family = "Optima") + 
+        geom_text(data = texts, aes(x, y, label = text), color = "#f4ee53", size = 8, hjust = 0.15, family = "Optima") + 
         geom_text(data = annotations, aes(x = x, y = y, col = I(col), label = n), size = 5, vjust = 0.7, family = "Optima") 
 
 ggdraw(main) + 
@@ -137,10 +137,11 @@ ggdraw(main) +
         draw_image(icons$toe, 
                    x = .92, y = .16, width = .3, height = .045, hjust = 1.4, vjust = 2.6) + 
         draw_text(text = "Injuries in amusement parks", x = .01, y = .96, 
-                  size = 23, hjust = 0, family = "Optima", color = "#ff8247", fontface = "bold") +
+                  size = 23, hjust = 0, family = "Optima", color = "#e79e43", fontface = "bold") +
         draw_text(text = sub, x = .01, y = .9, 
                   hjust = 0, vjust = .9, size = 18, family = "Optima") +
         draw_text(text = "data: data.world | graphic: @chucc900\nicons: www.flaticons.com", 
                   x = 0.7, y = 0.06, hjust = 0, vjust = .4, family = "Optima")
 
 ggsave(here::here("Week 37", "injuries.png"), width = 32.5, height = 19.9, units = "cm")
+
